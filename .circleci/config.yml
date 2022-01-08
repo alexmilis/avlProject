@@ -37,16 +37,19 @@ jobs:
       image: ubuntu-2004:202010-01
     steps:
       - checkout
+      - run:
+          name: "Setup custom image name"
+          command: echo 'export IMAGE_VERSION=`echo $CIRCLE_SHA1 | cut -c -16`' >> $BASH_ENV
       - run: docker-compose build
-      - run: docker tag alexmilis/service1 alexmilis/service1:$CIRCLE_SHA1
-      - run: docker tag alexmilis/service1 alexmilis/service2:$CIRCLE_SHA1
+      - run: docker tag alexmilis/service1 alexmilis/service1:$IMAGE_VERSION
+      - run: docker tag alexmilis/service1 alexmilis/service2:$IMAGE_VERSION
       - docker/check
       - docker/push:
           image: alexmilis/service1 
-          tag: latest,$CIRCLE_SHA1 
+          tag: latest,$IMAGE_VERSION
       - docker/push:
           image: alexmilis/service2 
-          tag: latest,$CIRCLE_SHA1 
+          tag: latest,$IMAGE_VERSION
 
 
 # Invoke jobs via workflows
@@ -67,4 +70,3 @@ workflows:
           filters:
             branches:
               only: main
-
