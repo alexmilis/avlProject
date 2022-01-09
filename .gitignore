@@ -151,3 +151,6 @@ crashlytics-build.properties
 fabric.properties
 
 docker-compose-versioned.yml
+
+service1/deployment-custom.yaml
+service2/deployment-custom.yaml
