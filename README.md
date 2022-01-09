@@ -28,3 +28,12 @@ This script creates a custom docker compose file with the specified versions of 
 ```
 sudo ./deploy.sh --version_service1=latest --version_service2=latest
 ```
+
+
+### Kubernetes
+
+Each service has its own Kubernetes `deployment.yaml` file. To create and run the deployments use the following commands:
+```
+kubectl create -f service1/deployment.yaml
+kubectl create -f service2/deployment.yaml
+```
